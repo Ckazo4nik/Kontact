@@ -18,6 +18,12 @@ Bundler.require(*Rails.groups)
 
 module Kontact
   class Application < Rails::Application
+
+# config/application.rb
+    config.middleware.use Rack::Runtime
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+    config.middleware.use ActionDispatch::Flash
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
