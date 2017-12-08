@@ -6,6 +6,7 @@ require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'support/factory_bot'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -22,13 +23,14 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include RequestSpecHelper, type: :request
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # configure shoulda matchers to use rspec as the test framework and full matcher libraries for rails
   Shoulda::Matchers.configure do |config|
@@ -37,12 +39,11 @@ RSpec.configure do |config|
       with.library :rails
     end
   end
+  config.include FactoryBot::Syntax::Methods
 
-
-  RSpec.configuration do |config|
-    # [...]
-    # add `FactoryGirl` methods
-    config.include FactoryGirl::Syntax::Methods
+  config.before(:suite) do
+    FactoryBot.find_definitions
+  end
 
     # start by truncating all the tables but then use the faster transaction strategy the rest of the time.
     config.before(:suite) do
