@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171211135205) do
+ActiveRecord::Schema.define(version: 20171212151704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,35 @@ ActiveRecord::Schema.define(version: 20171211135205) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "image"
+    t.float "cooking_time"
     t.index ["restaurant_id"], name: "index_dishes_on_restaurant_id"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "dishes_id"
+    t.bigint "order_id"
+    t.decimal "unit_price", precision: 12, scale: 3
+    t.integer "quantity"
+    t.decimal "total_price", precision: 12, scale: 3
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dishes_id"], name: "index_order_items_on_dishes_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "order_statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.decimal "total", precision: 12, scale: 3
+    t.decimal "subtotal", precision: 12, scale: 3
+    t.bigint "order_status_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_status_id"], name: "index_orders_on_order_status_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -51,4 +79,7 @@ ActiveRecord::Schema.define(version: 20171211135205) do
   end
 
   add_foreign_key "dishes", "restaurants"
+  add_foreign_key "order_items", "dishes", column: "dishes_id"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "order_statuses"
 end

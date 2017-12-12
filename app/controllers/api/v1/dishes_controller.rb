@@ -5,7 +5,9 @@ class Api::V1::DishesController < ApplicationController
 
   # GET /restaurants/:restaurant_id/dishes
   def index
-    json_response(@restaurant.dishes)
+    @dishes = @restaurant.dishes
+    json_response(@dishes)
+    @order_item = current_order.order_items.new
   end
 
   # GET /restaurants/:restaurant_id/dishes/:id
@@ -15,11 +17,11 @@ class Api::V1::DishesController < ApplicationController
 
   # POST /restaurants/:restaurant_id/dishes
   def create
-    @restaurant.dishes.create!(dish_params)
+    @dish = @restaurant.dishes.create!(dish_params)
     if @restaurant.save
-      json_response(@restaurant, :created)
+      json_response(@dish, :created)
     else
-      json_response(@restaurant.errors)
+      json_response(@dish.errors)
     end
   end
 
@@ -43,7 +45,7 @@ class Api::V1::DishesController < ApplicationController
   end
 
   def dish_params
-    params.permit(:name, :description, :restaurant_id, :price, :image)
+    params.permit(:name, :description, :restaurant_id, :price, :image, :cooking_time)
   end
 
   def set_restaurant
