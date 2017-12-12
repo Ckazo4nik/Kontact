@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'logout', to: 'api/v1/sessions#destroy', as: 'logout'
-  get 'login', to: 'api/v1/sessions#create', as: 'login'
+  post 'logout', to: 'api/v1/sessions#destroy', as: 'logout'
+  post 'login', to: 'api/v1/sessions#create', as: 'login'
 
   resources :sessions, only: [:create, :destroy]
   resource :home, only: [:show]
