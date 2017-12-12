@@ -1,8 +1,12 @@
 class Api::V1::SessionsController < ApplicationController
   def create
     user = User.from_omniauth(params[:oauth_token])
-    session[:user_id] = user.id
-    redirect_to root_path
+    if user.save
+      json_response(user)
+      session[:user_id] = user.id
+    else
+      json_response(user.errors)
+    end
   end
 
 
