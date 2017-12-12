@@ -1,14 +1,38 @@
 class User < ApplicationRecord
-  def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize.tap do |user|
-      user.provider = auth.provider
-      user.email = auth.info.email
-      user.uid = auth.uid
-      user.name = auth.info.name
-      user.image = auth.info.image
-      user.oauth_token = auth.credentials.token
-      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+  has_many :restaurants
+  before_create -> {self.token = generate_token}
+  def self.from_omniauth(oauth_token)
+    access_token = oauth_token
+    facebook = Koala::Facebook::API.new(access_token)
+    profile = facebook.get_object("me?fields=id,email,name,gender,birthday,location,picture.height(1024).width(1024)")
+    if user = User.find_by(uid: profile["id"])
+      token = user.generate_token
+      user.update(token: token)
+      user
+    else
+      user = User.new
+      user.provider = 'Facebook'
+      user.email = profile["email"]
+      user.uid = profile["id"]
+      user.name = profile["name"]
+      user.image = profile["picture"]
+      user.oauth_token = access_token
       user.save!
+      if user.save
+        user
+      else
+        user.errors
+      end
     end
   end
+
+  def generate_token
+    loop do
+      token = SecureRandom.hex
+      return token unless User.exists?({token: token})
+    end
+  end
+  private
+
+
 end

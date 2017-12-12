@@ -1,4 +1,4 @@
-class HomeController < ApplicationController
+class Api::V1::HomesController < ApplicationController
   def index
     @users = User.all
     json_response(@users)

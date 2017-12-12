@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: redirect('/')
-  get 'signout', to: 'sessions#destroy', as: 'signout'
+  get 'signout', to: 'api/v1/sessions#destroy', as: 'signout'
 
   resources :sessions, only: [:create, :destroy]
   resource :home, only: [:show]
-
-  root to: "home#index"
-  resources :restaurants do
-    resources :dishes
+  namespace :api do
+    namespace :v1 do
+      resources :homes
+      resources :sessions, only: [:create, :destroy]
+      resources :restaurants do
+        resources :dishes
+      end
+    end
   end
+  root to: "api/v1/homes#index"
 end

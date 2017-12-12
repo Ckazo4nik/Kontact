@@ -1,4 +1,6 @@
-class RestaurantsController < ApplicationController
+class Api::V1::RestaurantsController < ApplicationController
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+  before_action :authenticate, only: [:create, :destroy]
   before_action :set_restaurant, only: [:show, :update, :destroy]
 
   # GET /restaurants
@@ -10,7 +12,11 @@ class RestaurantsController < ApplicationController
   # POST /restaurants
   def create
     @restaurant = Restaurant.create(restaurant_params)
-    json_response(@restaurant, :created)
+    if @restaurant.save
+      json_response(@restaurant, :created)
+    else
+      json_response(@restaurant.errors)
+    end
   end
 
   # GET /restaurants/:id
@@ -31,10 +37,15 @@ class RestaurantsController < ApplicationController
   end
 
   private
+  def authenticate
+    authenticate_or_request_with_http_token do |token,other_options|
+       @user =  User.find_by(token: token)
+    end
+  end
 
   def restaurant_params
     # whitelist params
-    params.permit(:name, :description)
+    params.permit(:name, :description, :image, :user_id)
   end
 
   def set_restaurant

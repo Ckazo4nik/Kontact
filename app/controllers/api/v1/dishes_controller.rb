@@ -1,6 +1,7 @@
-class DishesController < ApplicationController
+class Api::V1::DishesController < ApplicationController
   before_action :set_restaurant
   before_action :set_restaurant_dish, only: [:show, :update, :destroy]
+  before_action :authenticate, only: [:create, :destroy]
 
   # GET /restaurants/:restaurant_id/dishes
   def index
@@ -15,7 +16,11 @@ class DishesController < ApplicationController
   # POST /restaurants/:restaurant_id/dishes
   def create
     @restaurant.dishes.create!(dish_params)
-    json_response(@restaurant, :created)
+    if @restaurant.save
+      json_response(@restaurant, :created)
+    else
+      json_response(@restaurant.errors)
+    end
   end
 
   # PUT /restaurants/:restaurant_id/dishes/:id
@@ -31,9 +36,14 @@ class DishesController < ApplicationController
   end
 
   private
+  def authenticate
+    authenticate_or_request_with_http_token do |token, options|
+      @user = User.find_by(token: token)
+    end
+  end
 
   def dish_params
-    params.permit(:name, :description, :restaurant_id, :price)
+    params.permit(:name, :description, :restaurant_id, :price, :image)
   end
 
   def set_restaurant
