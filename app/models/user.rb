@@ -35,6 +35,8 @@ class User < ApplicationRecord
       return token unless User.exists?({token: token})
     end
   end
+
+
   private
 
 

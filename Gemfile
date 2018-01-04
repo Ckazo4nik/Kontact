@@ -51,3 +51,5 @@ gem 'koala'
 gem 'rails_12factor', '0.0.2'
 gem 'rake'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'mysql2', '~> 0.3',    :platform => :ruby
+gem 'thinking-sphinx', '~> 3.4.2'
