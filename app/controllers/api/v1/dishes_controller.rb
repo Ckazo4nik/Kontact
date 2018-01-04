@@ -1,15 +1,16 @@
 class Api::V1::DishesController < ApplicationController
-  before_action :set_restaurant
+  before_action :set_restaurant, except: :index
   before_action :set_restaurant_dish, only: [:show, :update, :destroy]
 
   # GET /restaurants/:restaurant_id/dishes
   def index
-    @dishes = @restaurant.dishes
-    @order_item = current_order.order_items.create
+    @dishes = Dish.search "#{params[:letters]}"
+    @d = @dishes.select { |a| a.restaurant_id == (params[:restaurant_id]).to_i}
 
-    json_response(@dishes)
+
+    json_response(@d)
   end
-
+  # @order_item = current_order.order_items.create
   # GET /restaurants/:restaurant_id/dishes/:id
   def show
     json_response(@dish)

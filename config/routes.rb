@@ -13,8 +13,9 @@ Rails.application.routes.draw do
           get 'orders/:id' => 'orders#show'
           delete 'orders/:id' => 'orders#destroy'
           get 'users' => 'users#index'
+          get 'dishess' => 'dishes#index'
 
-
+          resources :dishes
           resource :home, only: [:show]
           resources :homes
           resources :sessions, only: [:create, :destroy]

@@ -4,7 +4,7 @@ class Api::V1::RestaurantsController < ApplicationController
 
   # GET /restaurants
   def index
-    @restaurants = Restaurant.all
+    @restaurants = Restaurant.search "#{(params[:letters])}"
     json_response(@restaurants)
   end
 
