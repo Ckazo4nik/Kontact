@@ -1,41 +1,27 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      get 'order_items/create'
+          post 'order' => 'order_items#create'
+          get 'order' => 'order_items#index'
+          get 'carts/show'
+          delete 'logout' =>  'sessions#destroy'
+          post 'login' => 'sessions#create'
+          get 'profile' => 'users#profile'
+          root to: 'homes#index'
+          get 'order_my' => 'order_items#show_order'
+          get 'orders' => 'orders#index'
+          get 'orders/:id' => 'orders#show'
+          delete 'orders/:id' => 'orders#destroy'
+
+
+          resource :home, only: [:show]
+          resources :homes
+          resources :sessions, only: [:create, :destroy]
+          resources :restaurants do
+            resources :dishes do
+              post 'order_items' => 'order_items#create'
+            end
+          end
     end
   end
-
-  namespace :api do
-    namespace :v1 do
-      get 'order_items/update'
-    end
-  end
-
-  namespace :api do
-    namespace :v1 do
-      get 'order_items/destroy'
-    end
-  end
-
-  namespace :api do
-    namespace :v1 do
-      get 'carts/show'
-    end
-  end
-
-  post 'logout', to: 'api/v1/sessions#destroy', as: 'logout'
-  post 'login', to: 'api/v1/sessions#create', as: 'login'
-
-  resources :sessions, only: [:create, :destroy]
-  resource :home, only: [:show]
-  namespace :api do
-    namespace :v1 do
-      resources :homes
-      resources :sessions, only: [:create, :destroy]
-      resources :restaurants do
-        resources :dishes
-      end
-    end
-  end
-  root to: "api/v1/homes#index"
 end

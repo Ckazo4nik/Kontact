@@ -50,3 +50,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'koala'
 gem 'rails_12factor', '0.0.2'
 gem 'rake'
+gem 'active_model_serializers', '~> 0.10.0'

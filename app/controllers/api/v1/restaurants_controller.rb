@@ -1,6 +1,5 @@
 class Api::V1::RestaurantsController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_action :authenticate, only: [:create, :destroy]
   before_action :set_restaurant, only: [:show, :update, :destroy]
 
   # GET /restaurants
@@ -11,7 +10,7 @@ class Api::V1::RestaurantsController < ApplicationController
 
   # POST /restaurants
   def create
-    @restaurant = Restaurant.create(restaurant_params)
+    @restaurant = current_user.restaurants.create(restaurant_params)
     if @restaurant.save
       json_response(@restaurant, :created)
     else
@@ -37,11 +36,6 @@ class Api::V1::RestaurantsController < ApplicationController
   end
 
   private
-  def authenticate
-    authenticate_or_request_with_http_token do |token,other_options|
-       @user =  User.find_by(token: token)
-    end
-  end
 
   def restaurant_params
     # whitelist params

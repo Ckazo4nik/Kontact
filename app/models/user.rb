@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   has_many :restaurants
+  has_many :orders
+
+
   before_create -> {self.token = generate_token}
   def self.from_omniauth(oauth_token)
     access_token = oauth_token

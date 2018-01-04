@@ -1,4 +1,5 @@
 class Api::V1::SessionsController < ApplicationController
+  skip_before_action :authenticate, only: [:create]
   def create
     user = User.from_omniauth(params[:oauth_token])
     if user.save
@@ -12,6 +13,7 @@ class Api::V1::SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path
+    session[:order_id] = nil
+    render status: 200, json: 1
   end
 end
