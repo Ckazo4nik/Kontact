@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :restaurants
   has_many :orders
-
+  mount_uploader :image, ImageUploader
 
   before_create -> {self.token = generate_token}
   def self.from_omniauth(oauth_token)
@@ -10,7 +10,7 @@ class User < ApplicationRecord
     profile = facebook.get_object("me?fields=id,email,name,gender,birthday,location,picture.height(1024).width(1024)")
     if user = User.find_by(uid: profile["id"])
       token = user.generate_token
-      user.update(token: token)
+      user.update(token:token)
       user
     else
       user = User.new
@@ -18,14 +18,10 @@ class User < ApplicationRecord
       user.email = profile["email"]
       user.uid = profile["id"]
       user.name = profile["name"]
-      user.image = profile["picture"]
+      user.remote_image_url = profile["picture"]["data"]["url"]
       user.oauth_token = access_token
-      user.save!
-      if user.save
-        user
-      else
-        user.errors
-      end
+      user.save
+      user
     end
   end
 

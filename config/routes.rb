@@ -8,12 +8,13 @@ Rails.application.routes.draw do
           post 'login' => 'sessions#create'
           get 'profile' => 'users#profile'
           root to: 'homes#index'
-          get 'order_my' => 'order_items#show_order'
+          get 'orders_my' => 'order_items#show_order'
           get 'orders' => 'orders#index'
           get 'orders/:id' => 'orders#show'
           delete 'orders/:id' => 'orders#destroy'
           get 'users' => 'users#index'
           get 'dishess' => 'dishes#index'
+          get 'my_orders' => 'orders#my_orders'
 
           resources :dishes
           resource :home, only: [:show]

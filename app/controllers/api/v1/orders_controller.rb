@@ -1,10 +1,18 @@
 class Api::V1::OrdersController < ApplicationController
-  before_action :find_order, except: :index
+  before_action :find_order, only: [:show, :destroy]
   def index
     # @orders = Order.where(restaurant_id: current_user.restaurants.first.id).search (params[:letters])
     @orders = Order.search(params[:number])
     @d = @orders.select { |a| a.restaurant_id == current_user.restaurants.first.id}
 
+
+    render json: @d
+  end
+
+  def my_orders
+    @orders = Order.search(params[:number])
+
+    @d = @orders.select { |a| a.user_id == current_user.id}
 
     render json: @d
   end
@@ -16,7 +24,7 @@ class Api::V1::OrdersController < ApplicationController
   def destroy
     @order.destroy
 
-    render status: 200, json: 1
+    head :no_content
   end
 
   private

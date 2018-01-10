@@ -48,6 +48,13 @@ GEM
     arel (8.0.0)
     builder (3.2.3)
     byebug (9.1.0)
+    carrierwave (1.1.0)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
+    carrierwave-base64 (2.5.3)
+      carrierwave (>= 0.8.0)
+      mime-types (~> 3.0)
     case_transform (0.2)
       activesupport
     concurrent-ruby (1.0.5)
@@ -85,6 +92,9 @@ GEM
       mini_mime (>= 0.1.1)
     method_source (0.9.0)
     middleware (0.1.0)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
@@ -186,6 +196,8 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   byebug
+  carrierwave
+  carrierwave-base64
   database_cleaner
   factory_bot
   faker

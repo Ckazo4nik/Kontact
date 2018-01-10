@@ -26,7 +26,7 @@ class Api::V1::RestaurantsController < ApplicationController
   # PUT /restaurants/:id
   def update
     @restaurant.update(restaurant_params)
-    head :no_content
+    json_response(@restaurant)
   end
 
   # DELETE /restaurants/:id
