@@ -1,8 +1,9 @@
-require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
-#require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
- #require 'mina/rvm'    # for rvm support. (https://rvm.io)
+require 'mina/rvm'
+require 'mina/multistage'
+require 'mina/whenever'
+
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
@@ -30,12 +31,10 @@ set :branch, 'master'
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
 task :remote_environment do
-  # If you're using rbenv, use this to load the rbenv environment.
-  # Be sure to commit your .ruby-version or .rbenv-version to your repository.
-  #invoke :'rbenv:load'
+  ruby_version = File.read('.ruby-version').strip
+  raise "Couldn't determine Ruby version: Do you have a file .ruby-version in your project root?" if ruby_version.empty?
 
-  # For those using RVM, use this to load an RVM version@gemset.
-  # invoke :'rvm:use', 'ruby-2.4.0'
+  invoke :'rvm:use', ruby_version
 end
 
 # Put any custom commands you need to run at setup
