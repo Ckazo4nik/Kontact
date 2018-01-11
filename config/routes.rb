@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           get 'orders/:id' => 'orders#show'
           delete 'orders/:id' => 'orders#destroy'
           get 'users' => 'users#index'
+          put 'update_profile' => 'users#update'
           get 'dishess' => 'dishes#index'
           get 'my_orders' => 'orders#my_orders'
 
