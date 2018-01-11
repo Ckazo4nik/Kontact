@@ -1,8 +1,6 @@
 require 'mina/rails'
 require 'mina/git'
-require 'mina/rvm'
-require 'mina/multistage'
-require 'mina/whenever'
+#require 'mina/rvm'
 
 
 # Basic settings:
@@ -31,10 +29,10 @@ set :branch, 'master'
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
 task :remote_environment do
-  ruby_version = File.read('.ruby-version').strip
-  raise "Couldn't determine Ruby version: Do you have a file .ruby-version in your project root?" if ruby_version.empty?
-
-  invoke :'rvm:use', ruby_version
+  # ruby_version = File.read('.ruby-version').strip
+  # raise "Couldn't determine Ruby version: Do you have a file .ruby-version in your project root?" if ruby_version.empty?
+  #
+  # invoke :'rvm:use', ruby_version
 end
 
 # Put any custom commands you need to run at setup
