@@ -15,6 +15,7 @@
 !/tmp/.keep
 /config/database.yml
 /config/secrets.yml
+/db/sphinx/*
 /db/sphinx
 /public/uploads
 .byebug_history
