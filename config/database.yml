@@ -82,7 +82,8 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: Kontact_production
-  username: Kontact
-  password: <%= ENV['KONTACT_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  encoding: unicode
+  database: Konect
+  username: deploy
+  password: databasekonect
