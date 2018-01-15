@@ -35,7 +35,7 @@ task :remote_environment do
   # Be sure to commit your .ruby-version or .rbenv-version to your repository.
   # invoke :'rbenv:load'
 
-  # For those using RVM, use this to load an RVM version@gemset.
+  # For thos#e using RVM, use this to load an RVM version@gemset.
   invoke :'rvm:use', 'ruby 2.4.0@default'
 end
 
