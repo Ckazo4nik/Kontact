@@ -10,7 +10,7 @@ class Api::V1::RestaurantsController < ApplicationController
 
   # POST /restaurants
   def create
-    @restaurant = current_user.restaurants.create(restaurant_params)
+    @restaurant = @user.restaurants.create(restaurant_params)
     if @restaurant.save
       json_response(@restaurant, :created)
     else

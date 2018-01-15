@@ -3,7 +3,7 @@ class Api::V1::OrdersController < ApplicationController
   def index
     # @orders = Order.where(restaurant_id: current_user.restaurants.first.id).search (params[:letters])
     @orders = Order.search(params[:number])
-    @d = @orders.select { |a| a.restaurant_id == current_user.restaurants.first.id}
+    @d = @orders.select { |a| a.restaurant_id == @user.restaurants.first.id}
 
 
     render json: @d
@@ -12,7 +12,7 @@ class Api::V1::OrdersController < ApplicationController
   def my_orders
     @orders = Order.search(params[:number])
 
-    @d = @orders.select { |a| a.user_id == current_user.id}
+    @d = @orders.select { |a| a.user_id == @user.id}
 
     render json: @d
   end

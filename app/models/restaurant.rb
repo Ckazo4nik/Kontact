@@ -11,6 +11,6 @@ class Restaurant < ApplicationRecord
   private
 
   def set_user_id
-    @restaurant.user_id = @@current_user.id
+    @restaurant.user_id = @user.id
   end
 end
