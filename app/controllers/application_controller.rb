@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include Response
   include ExceptionHandler
   helper_method :current_user
-  helper_method :current_order
+  # helper_method :current_order
   include ActionController::HttpAuthentication::Token::ControllerMethods
   include ActionController::Serialization
   before_action :authenticate
@@ -34,11 +34,11 @@ class ApplicationController < ActionController::Base
 
 
 
-  def current_order
-    if !session[:order_id].nil?
-      Order.find(session[:order_id])
-    else
-      Order.new
-    end
-  end
+  # def current_order
+  #   if !session[:order_id].nil?
+  #     Order.find(session[:order_id])
+  #   else
+  #     Order.save
+  #   end
+  # end
 end

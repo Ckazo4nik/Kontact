@@ -1,5 +1,5 @@
 class Api::V1::OrderItemsController < ApplicationController
-  before_action :find_dish, only: :create
+  # before_action :find_dish, only: :create
   def index
     order = Order.all
     order = order.where(order_status_id: params[:id])
@@ -12,13 +12,10 @@ class Api::V1::OrderItemsController < ApplicationController
   end
 
   def create
-    @order = current_order
-    @order_item = @order.order_items.new(order_item_params.merge(dish_id: @dish.id))
-    @order.restaurant_id = @dish.restaurant_id
-    @order.user_id = current_user.id
-    @order.save
-    session[:order_id] = @order.id
-    render json: @order
+    order = Order.create(restaurant_id: params[:restaurant_id], user_id: @user.id)
+    OrderItem.create_for_order(order, params[:items])
+    # session[:order_id] = @order.id
+    render json: { 'order': order}
   end
 
   def update
@@ -36,9 +33,9 @@ class Api::V1::OrderItemsController < ApplicationController
   end
   private
 
-  def find_dish
-    @dish = Dish.find(params[:dish_id])
-  end
+  # def find_dish
+  #   @dish = Dish.find(params[:dish_id])
+  # end
   def order_item_params
     params.permit(:quantity, :dish_id)
   end

@@ -19,6 +19,19 @@ class OrderItem < ApplicationRecord
     unit_price * quantity
   end
 
+
+  def self.create_for_order(order, items_params)
+    items_params.each do |item|
+      dish = Dish.find(item["id"])
+      OrderItem.create(
+                    dish_id: dish.id,
+                    order_id: order.id,
+                    quantity: item["quantity"]
+      )
+    end
+
+  end
+
   private
   def product_present
     if product.nil?

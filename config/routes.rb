@@ -17,13 +17,15 @@ Rails.application.routes.draw do
           get 'dishess' => 'dishes#index'
           get 'my_orders' => 'orders#my_orders'
 
+
           resources :dishes
           resource :home, only: [:show]
           resources :homes
           resources :sessions, only: [:create, :destroy]
           resources :restaurants do
+
+            post 'order_items' => 'order_items#create'
             resources :dishes do
-              post 'order_items' => 'order_items#create'
             end
           end
     end

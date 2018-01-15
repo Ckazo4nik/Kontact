@@ -69,7 +69,6 @@ task :deploy do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
-    invoke :'rake:ts:rebuild'
     invoke :'deploy:cleanup'
 
     on :launch do
