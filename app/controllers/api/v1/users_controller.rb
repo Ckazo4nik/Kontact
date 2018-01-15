@@ -11,7 +11,7 @@ class Api::V1::UsersController < ApplicationController
   end
   def update
     @user.update(user_params)
-    json_response(user)
+    json_response(@user)
   end
 
   private
