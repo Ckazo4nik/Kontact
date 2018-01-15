@@ -6,13 +6,11 @@ class Api::V1::UsersController < ApplicationController
     render json: @users
   end
   def profile
-    user = User.find(current_user.id)
 
-    render json: user
+    render json: @user
   end
   def update
-    user = User.find(current_user.id)
-    user.update(user_params)
+    @user.update(user_params)
     json_response(user)
   end
 
