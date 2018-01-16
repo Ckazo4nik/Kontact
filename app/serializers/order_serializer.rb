@@ -1,5 +1,5 @@
 class OrderSerializer < ActiveModel::Serializer
-  attributes :id, :order_status_id, :total, :subtotal, :restaurant_id, :user_id, :user
+  attributes :id, :order_status_id, :total, :subtotal, :restaurant, :user_id, :user
 
   has_many :order_items
 
@@ -10,6 +10,16 @@ class OrderSerializer < ActiveModel::Serializer
         name: user.name,
         image: user.image,
 
+    }
+  end
+
+  def restaurant
+    name = object.restaurant.name
+    image = object.restaurant.image
+
+    {
+        name: name,
+        image:image
     }
   end
 end

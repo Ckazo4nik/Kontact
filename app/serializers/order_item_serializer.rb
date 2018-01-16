@@ -6,10 +6,13 @@ class OrderItemSerializer < ActiveModel::Serializer
 
     {
         dish_id: item.dish.id,
+        dish_name: item.dish.name,
         unit_price: item.unit_price,
         quantity: item.quantity,
         total_price: item.total_price,
-        restaurant_id: item.dish.restaurant_id
+        restaurant_id: item.dish.restaurant_id,
     }
   end
+
+
 end
