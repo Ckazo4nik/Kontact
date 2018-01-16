@@ -26,7 +26,7 @@ set :forward_agent, true     # SSH forward_agent.
 # Some plugins already add folders to shared_dirs like `mina/rails` add `public/assets`, `vendor/bundle` and many more
 # run `mina -d` to see all folders and files already included in `shared_dirs` and `shared_files`
 set :shared_dirs, fetch(:shared_dirs, []).push('tmp', 'log', 'public/uploads', 'public/system')
-set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'public/uploads', 'config/secrets.yml', 'config/application.yml')
+set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'public/uploads', 'config/secrets.yml', 'config/application.yml', 'config/production.sphinx.conf')
 
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
@@ -51,6 +51,7 @@ task setup: :environment do
   command %{touch "#{fetch(:shared_path)}/config/puma.rb"}
   command %{touch "#{fetch(:shared_path)}/config/database.yml"}
   command %{touch "#{fetch(:shared_path)}/config/secrets.yml"}
+  command %{touch "#{fetch(:shared_path)}/config/production.sphinx.conf"}
 
   command %{mkdir -p "#{fetch(:shared_path)}/tmp/sockets"}
   command %{chmod g+rx,u+rwx "#{fetch(:shared_path)}/tmp/sockets"}

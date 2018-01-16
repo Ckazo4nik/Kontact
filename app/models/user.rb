@@ -10,8 +10,7 @@ class User < ApplicationRecord
     profile = facebook.get_object("me?fields=id,email,name,gender,birthday,location,picture.height(1024).width(1024)")
     if user = User.find_by(uid: profile["id"])
       token = user.generate_token
-      picture = profile["picture"]["data"]["url"]
-      user.update(token:token, image:picture)
+      user.update(token:token)
       user
     else
       user = User.new
