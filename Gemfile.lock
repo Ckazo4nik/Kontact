@@ -212,6 +212,7 @@ DEPENDENCIES
   faker
   koala
   listen (>= 3.0.5, < 3.2)
+  mina
   mina-whenever
   mysql2 (~> 0.3)
   pg (~> 0.18)

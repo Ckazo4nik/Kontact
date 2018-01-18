@@ -56,5 +56,6 @@ gem 'thinking-sphinx', '~> 3.4.2'
 
 gem 'carrierwave-base64'
 gem 'carrierwave'
-gem 'whenever'
-gem 'mina-whenever'
+gem 'whenever', :require => false
+gem 'mina-whenever', :require => false
+gem 'mina'
