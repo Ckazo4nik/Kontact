@@ -10,7 +10,7 @@ class Api::V1::OrdersController < ApplicationController
   end
 
   def my_orders
-    @orders = Order.search(params[:number])
+    @orders = Order.all
 
     @d = @orders.select { |a| a.user_id == @user.id}
 
