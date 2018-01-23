@@ -4,6 +4,7 @@ class Order < ApplicationRecord
   belongs_to :restaurant
   belongs_to :user
   before_validation :set_order_status
+  after_save ThinkingSphinx::RealTime.callback_for(:order)
 
   def subtotal
     order_items.collect { |oi| oi.valid? ? (oi.quantity * oi.unit_price) : 0 }.sum
