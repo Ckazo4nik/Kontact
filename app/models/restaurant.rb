@@ -3,7 +3,7 @@ class Restaurant < ApplicationRecord
   has_many :dishes, foreign_key: 'restaurant_id', dependent: :destroy
   belongs_to :user
   has_many :orders
-v
+  after_save ThinkingSphinx::RealTime.callback_for(:restaurant)
   mount_base64_uploader :image, ImageRestaurantUploader
   # validations
   validates_presence_of :name, :description
