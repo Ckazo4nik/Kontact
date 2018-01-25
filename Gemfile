@@ -56,7 +56,5 @@ gem 'thinking-sphinx', '~> 3.4.2'
 
 gem 'carrierwave-base64'
 gem 'carrierwave'
-# gem 'whenever'
-# gem 'mina-whenever'
 gem 'mina'
 gem 'mini_magick'

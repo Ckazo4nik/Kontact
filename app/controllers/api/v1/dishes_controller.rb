@@ -4,7 +4,7 @@ class Api::V1::DishesController < ApplicationController
 
   # GET /restaurants/:restaurant_id/dishes
   def index
-    @dishes = Dish.search "#{params[:letters,:status]}",
+    @dishes = Dish.search "#{params[:letters]}"
     @d = @dishes.select { |a| a.restaurant_id == (params[:restaurant_id]).to_i}
 
 
