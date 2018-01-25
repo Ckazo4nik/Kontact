@@ -16,8 +16,10 @@ class OrderSerializer < ActiveModel::Serializer
   def restaurant
     name = object.restaurant.name
     image = object.restaurant.image
+    id = object.restaurant.id
 
     {
+        id: id,
         name: name,
         image:image
     }

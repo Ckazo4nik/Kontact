@@ -3,7 +3,13 @@ class Api::V1::OrdersController < ApplicationController
   def index
     # @orders = Order.where(restaurant_id: current_user.restaurants.first.id).search (params[:letters])
     @orders = Order.search(params[:number])
-    @d = @orders.select { |a| a.restaurant_id == @user.restaurants.first.id}
+    @d =[]
+    @orders.each do |f|
+      if f.restaurant_id == @user.restaurants.first.id && f.order_status.id == params[:status].to_i
+        @d.push(f)
+      end
+        @d
+    end
 
 
     render json: @d

@@ -4,7 +4,7 @@ class Api::V1::DishesController < ApplicationController
 
   # GET /restaurants/:restaurant_id/dishes
   def index
-    @dishes = Dish.search "#{params[:letters]}"
+    @dishes = Dish.search "#{params[:letters,:status]}",
     @d = @dishes.select { |a| a.restaurant_id == (params[:restaurant_id]).to_i}
 
 
@@ -41,7 +41,7 @@ class Api::V1::DishesController < ApplicationController
   private
 
   def dish_params
-    params.permit(:name, :description, :restaurant_id, :price, :image, :cooking_time)
+    params.permit(:name, :description, :restaurant_id, :price, :image,:show, :cooking_time)
   end
 
   def set_restaurant

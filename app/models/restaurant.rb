@@ -4,7 +4,7 @@ class Restaurant < ApplicationRecord
   belongs_to :user
   has_many :orders
   after_save ThinkingSphinx::RealTime.callback_for(:restaurant)
-  mount_base64_uploader :image, ImageRestaurantUploader
+  mount_base64_uploader :image, ImageUploader
   # validations
   validates_presence_of :name, :description
   validates :name, :description , presence: true

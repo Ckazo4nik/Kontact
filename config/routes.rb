@@ -16,7 +16,7 @@ Rails.application.routes.draw do
           put 'update_profile' => 'users#update'
           get 'dishess' => 'dishes#index'
           get 'my_orders' => 'orders#my_orders'
-
+          resources :orders
 
           resources :dishes
           resource :home, only: [:show]
