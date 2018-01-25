@@ -14,10 +14,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  def filename
+    def filename
+      "#{Time.now.to_i}" + '.png' if original_filename.present?
+    end
 
-    "#{Time.now.to_i}_#{@filename}"
-  end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url(*args)
