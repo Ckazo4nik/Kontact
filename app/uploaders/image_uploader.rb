@@ -17,13 +17,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     def filename
       "#{Time.now.to_i}" + '.png' if original_filename.present?
     end
-  def pre_limit file
-    #require 'debugger'; debugger
-    if file && file.size > 5.megabytes
-      raise Exception.new("too large")
-    end
-    true
-  end
+
   def size_range
     1...574834
   end

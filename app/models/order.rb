@@ -11,7 +11,7 @@ class Order < ApplicationRecord
   end
   private
   def set_order_status
-    self.order_status_id = OrderStatus.all.first.id
+    self.order_status_id ||= OrderStatus.all.first.id
   end
 
   def update_subtotal
