@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   include ActionController::Serialization
   before_action :authenticate
 
+
   private
 
   def authenticate

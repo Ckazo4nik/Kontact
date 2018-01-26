@@ -4,7 +4,7 @@ class OrderItem < ApplicationRecord
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :order_present
-
+  after_commit ThinkingSphinx::RealTime.callback_for(:order)
   before_save :finalize
 
   def unit_price
