@@ -4,7 +4,10 @@ class Api::V1::DishesController < ApplicationController
 
   # GET /restaurants/:restaurant_id/dishes
   def index
-    @dishes = Dish.search "#{params[:letters]}"
+    # @dishes = Dish.search "#{params[:letters]}"
+     @dishes = Dish.all unless params[:letters]
+    @dishes = Dish.simple_search(params[:letters], :pattern => :beginning) if params[:letters]
+
     @d = @dishes.select { |a| a.restaurant_id == (params[:restaurant_id]).to_i}
 
 

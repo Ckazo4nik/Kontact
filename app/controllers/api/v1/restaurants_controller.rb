@@ -4,7 +4,11 @@ class Api::V1::RestaurantsController < ApplicationController
 
   # GET /restaurants
   def index
-    @restaurants = Restaurant.search "#{(params[:letters])}"
+    # @restaurants = Restaurant.search "#{(params[:letters])}"
+    @restaurants = Restaurant.all unless params[:letters]
+    @restaurants = Restaurant.simple_search(params[:letters], :pattern => :beginning) if params[:letters]
+
+
     json_response(@restaurants)
   end
 

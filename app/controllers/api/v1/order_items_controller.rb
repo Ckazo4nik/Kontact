@@ -12,8 +12,7 @@ class Api::V1::OrderItemsController < ApplicationController
   end
 
   def create
-    order = Order.create(restaurant_id: params[:restaurant_id], user_id: @user.id)
-    OrderItem.create_for_order(order, params[:items])
+    order = Order.create(restaurant_id: params[:restaurant_id], user_id: @user.id, ids: (Order.last.id + 1).to_s)
     session[:order_id] = order.id
     render json: { 'order': order}
   end

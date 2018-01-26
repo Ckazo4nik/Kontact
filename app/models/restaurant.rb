@@ -1,18 +1,11 @@
 class Restaurant < ApplicationRecord
+  include RubySimpleSearch
   # model association
   has_many :dishes, dependent: :destroy
   belongs_to :user
   has_many :orders
-  after_commit :populate_to_sphinx
+  simple_search_attributes :name
 
-# ...
-
-  def populate_to_sphinx
-
-    ThinkingSphinx::RealTime::Callbacks::RealTimeCallbacks.new(
-        :restaurant
-    ).after_save self
-  end
   mount_base64_uploader :image, ImageUploader
   # validations
   validates_presence_of :name, :description

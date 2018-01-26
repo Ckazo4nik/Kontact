@@ -2,7 +2,10 @@ class Api::V1::OrdersController < ApplicationController
   before_action :find_order, only: [:show, :destroy, :update]
   def index
     # @orders = Order.where(restaurant_id: current_user.restaurants.first.id).search (params[:letters])
-    @orders = Order.search(params[:number])
+    # @orders = Order.search(params[:number])
+    @orders = Order.all unless params[:number]
+    @orders = Order.simple_search(params[:number], :pattern => :beginning) if params[:number]
+
     @d =[]
     @orders.each do |f|
       if f.restaurant_id == @user.restaurants.first.id && f.order_status.id == params[:status].to_i
