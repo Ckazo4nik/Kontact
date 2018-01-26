@@ -1,5 +1,5 @@
 class Api::V1::SessionsController < ApplicationController
-  skip_before_action :authenticate, only: [:create]
+  skip_before_action :authenticate, only: [:create, :destroy]
   def create
     user = User.from_omniauth(params[:oauth_token])
     if user
