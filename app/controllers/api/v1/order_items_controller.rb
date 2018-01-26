@@ -1,5 +1,5 @@
 class Api::V1::OrderItemsController < ApplicationController
-  # before_action :find_dish, only: :create
+  # before_action :find_dish, only: :create  # before_action :find_dish, only: :create  # before_action :find_dish, only: :create
   def index
     order = Order.all
     order = order.where(order_status_id: params[:id])

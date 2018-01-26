@@ -8,11 +8,11 @@ class Restaurant < ApplicationRecord
   has_many :orders
   simple_search_attributes :name
 
-
   mount_base64_uploader :image, ImageUploader
   # validations
   validates_presence_of :name, :description
   validates :name, :description , presence: true
+
   private
 
   def set_user_id
