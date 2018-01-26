@@ -17,6 +17,7 @@ class Restaurant < ApplicationRecord
   # validations
   validates_presence_of :name, :description
   validates :name, :description , presence: true
+  after_commit ThinkingSphinx::RealTime.callback_for(:restaurant)
 
   private
 

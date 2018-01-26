@@ -16,6 +16,7 @@ class User < ApplicationRecord
   def self.from_omniauth(oauth_token)
     access_token = oauth_token
     facebook = Koala::Facebook::API.new(access_token)
+
     profile = facebook.get_object("me?fields=id,email,name,gender,birthday,location,picture.height(1024).width(1024)")
     if user = User.find_by(uid: profile["id"])
       token = user.generate_token
