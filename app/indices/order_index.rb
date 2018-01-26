@@ -1,6 +1,5 @@
 ThinkingSphinx::Index.define :order, :with => :active_record do
-  # fields
   indexes id
 
-  has restaurant_id
+  has restaurant_id, order_status_id, user_id
 end

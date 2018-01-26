@@ -1,10 +1,11 @@
 class Order < ApplicationRecord
   belongs_to :order_status
-  has_many :order_items, dependent: :destroy
+  has_many :order_items, dependent: :delete_all, foreign_key: 'order_id'
   belongs_to :restaurant
   belongs_to :user
   before_validation :set_order_status
   after_commit ThinkingSphinx::RealTime.callback_for(:order)
+
 
   def subtotal
     order_items.collect { |oi| oi.valid? ? (oi.quantity * oi.unit_price) : 0 }.sum

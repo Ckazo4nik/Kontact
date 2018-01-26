@@ -2,7 +2,16 @@ class User < ApplicationRecord
   has_many :restaurants
   has_many :orders
   mount_base64_uploader :image, ImageUploader
-  after_commit ThinkingSphinx::RealTime.callback_for(:user)
+  after_commit :populate_to_sphinx
+
+# ...
+
+  def populate_to_sphinx
+
+    ThinkingSphinx::RealTime::Callbacks::RealTimeCallbacks.new(
+        :user
+    ).after_save self
+  end
   before_create -> {self.token = generate_token}
   def self.from_omniauth(oauth_token)
     access_token = oauth_token

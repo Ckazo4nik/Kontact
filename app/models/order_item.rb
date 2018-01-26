@@ -1,10 +1,20 @@
 class OrderItem < ApplicationRecord
   belongs_to :dish
   belongs_to :order
+  after_commit :populate_to_sphinx
 
+# ...
+
+  def populate_to_sphinx
+
+    ThinkingSphinx::RealTime::Callbacks::RealTimeCallbacks.new(
+        :order
+    ).after_save self
+  end
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :order_present
   after_commit ThinkingSphinx::RealTime.callback_for(:order)
+  after_save ThinkingSphinx::RealTime.callback_for(:order)
   before_save :finalize
 
   def unit_price
