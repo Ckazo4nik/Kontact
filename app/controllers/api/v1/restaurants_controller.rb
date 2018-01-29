@@ -30,7 +30,11 @@ class Api::V1::RestaurantsController < ApplicationController
   # PUT /restaurants/:id
   def update
     @restaurant.update(restaurant_params)
-    json_response(@restaurant)
+    if @restaurant.update
+      json_response(@restaurant)
+    else
+      render json: @restaurant.errors
+    end
   end
 
   # DELETE /restaurants/:id
