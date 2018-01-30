@@ -6,8 +6,14 @@ class Order < ApplicationRecord
   has_many :orders_users
   has_many :users, through: :orders_users
   before_validation :set_order_status
+  before_save :set_ids
   after_commit ThinkingSphinx::RealTime.callback_for(:order)
   simple_search_attributes :ids
+
+
+  def set_ids
+    self.ids = Order.all.empty? ? '1' : (Order.last.id + 1).to_s
+  end
 
   def subtotal
     order_items.collect { |oi| oi.valid? ? (oi.quantity * oi.unit_price) : 0 }.sum

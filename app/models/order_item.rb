@@ -3,6 +3,7 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   after_commit :populate_to_sphinx
 
+
 # ...
 
   def populate_to_sphinx
