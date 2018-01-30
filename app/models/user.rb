@@ -6,7 +6,7 @@ class User < ApplicationRecord
   mount_base64_uploader :image, ImageUploader
   after_commit :populate_to_sphinx
   simple_search_attributes :name
-# ...
+
 
   def populate_to_sphinx
 
