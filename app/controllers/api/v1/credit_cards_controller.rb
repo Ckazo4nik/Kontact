@@ -23,7 +23,7 @@ class Api::V1::CreditCardsController < ApplicationController
   private
 
   def card_params
-    params.permit(:card_number, :card_date, :user_id)
+    params.permit(:card_number, :card_date_month, :card_date_year, :user_id)
   end
 
   def find_card
