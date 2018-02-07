@@ -1,7 +1,7 @@
 class Api::V1::CreditCardsController < ApplicationController
   before_action :find_card, only: [:update, :destroy, :show]
 
-  def all_user_credit_cart
+  def all_user_credit_card
     cards = CreditCard.where(user_id: @user.id)
     render json: cards
   end

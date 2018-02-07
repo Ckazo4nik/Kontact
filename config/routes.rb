@@ -18,9 +18,9 @@ Rails.application.routes.draw do
       put 'update_profile' => 'users#update'
       get 'dishess' => 'dishes#index'
       get 'my_orders' => 'orders#my_orders'
-      get 'carts' => 'credit_carts#all_user_credit_cart'
+      get 'cards' => 'credit_cards#all_user_credit_card'
       resources :orders
-      resources :credit_carts
+      resources :credit_cards
       resources :dishes
       resource :home, only: [:show]
       resources :homes
