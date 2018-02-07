@@ -47,7 +47,7 @@ class Api::V1::RestaurantsController < ApplicationController
 
   def restaurant_params
     # whitelist params
-    params.permit(:name, :description, :image, :user_id)
+    params.permit(:name, :description, :image, :user_id, :secret_key_restaurant, :public_key_restaurant)
   end
 
   def set_restaurant

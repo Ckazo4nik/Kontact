@@ -59,5 +59,5 @@ gem 'carrierwave'
 gem 'mina'
 gem 'mini_magick'
 gem 'ruby_simple_search'
-
-#asdasdasdasasdasdasd
+gem 'stripe'
+gem 'dotenv-rails', :groups => [:development, :test]
